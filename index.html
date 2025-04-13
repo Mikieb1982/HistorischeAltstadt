@@ -11,9 +11,9 @@
         body {
             background-color: #f9f6e8;
             font-family: 'Inter', sans-serif;
-            overflow-x: hidden; /* Prevent horizontal scrollbar */
-            perspective: 1000px; /* Add perspective for 3D effect */
-            margin: 0; /* Reset default body margin */
+            overflow-x: hidden;
+            perspective: 1000px;
+            margin: 0;
         }
 
         header {
@@ -41,22 +41,23 @@
             position: relative;
             width: 100%;
             max-width: 1000px;
+            transform-origin: 50% 0;
         }
 
         .timeline-item {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 60px; /* Increased margin for better spacing */
+            margin-bottom: 60px;
             position: relative;
             align-items: center;
             opacity: 0;
-            transform: translateY(50px) scale(0.8); /* Start off-screen and scaled down */
-            transition: opacity 1s ease, transform 1s ease; /* Add smooth transition */
+            transform: translateY(50px) scale(0.8) translateZ(-500px);
+            transition: opacity 1s ease, transform 1s ease;
         }
 
         .timeline-item.active {
             opacity: 1;
-            transform: translateY(0) scale(1); /* Move into view and scale up */
+            transform: translateY(0) scale(1) translateZ(0);
         }
 
         .timeline-item:nth-child(odd) {
@@ -70,12 +71,10 @@
             border-radius: 12px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
             width: 45%;
-            transform: translateZ(200px); /* Push content forward in 3D space */
-            transition: transform 0.5s ease, box-shadow 0.5s ease;
         }
 
         .timeline-item-content:hover {
-            transform: translateZ(250px) translateY(-5px);
+            transform: scale(1.03) translateZ(10px);
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
         }
 
@@ -102,7 +101,6 @@
             color: #1a5295;
             position: relative;
             z-index: 2;
-            transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
         .timeline-item-date:hover {
@@ -139,7 +137,7 @@
             .timeline-item-content {
                 width: 90%;
                 margin-top: 20px;
-                transform: translateZ(0); /* Remove 3D for mobile */
+                transform: translateZ(0);
             }
 
             .timeline-item-date {
@@ -163,11 +161,11 @@
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(50px) scale(0.8);
+                transform: translateY(50px) scale(0.8) translateZ(-500px);
             }
             to {
                 opacity: 1;
-                transform: translateY(0) scale(1);
+                transform: translateY(0) scale(1) translateZ(0);
             }
         }
 
@@ -309,22 +307,27 @@
 
     <script>
         const timelineItems = document.querySelectorAll('.timeline-item');
+        let lastScrollTop = 0;
 
         function checkSlide() {
+            const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
             timelineItems.forEach(item => {
                 const itemTop = item.getBoundingClientRect().top;
                 const windowHeight = window.innerHeight;
 
-                if (itemTop < windowHeight - 100) { // Adjust 100 to change when it becomes active
+                if (itemTop < windowHeight - 100) {
                     item.classList.add('active');
                 } else {
                     item.classList.remove('active');
                 }
             });
+
+            lastScrollTop = currentScrollTop;
         }
 
         window.addEventListener('scroll', checkSlide);
-        checkSlide(); // Initial check on page load
+        checkSlide();
     </script>
 </body>
 </html>
