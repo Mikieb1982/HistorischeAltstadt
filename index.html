@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historische Altstadt Belzig</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for the interactive timeline */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            margin: 50px auto;
+            padding: 20px;
+            max-width: 1000px;
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            position: relative;
+            align-items: center; /* Vertically center items */
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+            text-align: left;
+        }
+
+        .timeline-item-content {
+            background-color: #f8f8f8;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow */
+            width: 48%; /* Slightly wider content area */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+        }
+
+        .timeline-item-content:hover {
+            transform: translateY(-5px); /* Slight lift on hover */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Increased shadow on hover */
+        }
+
+        .timeline-item-content h3 {
+            margin-bottom: 12px;
+            font-size: 1.6rem; /* Larger heading */
+            font-weight: 700; /* Bold heading */
+            color: #1a5295;
+        }
+
+        .timeline-item-content p {
+            font-size: 1.1rem; /* Slightly larger text */
+            line-height: 1.6; /* Increased line height for better readability */
+            color: #666;
+        }
+
+        .timeline-item-date {
+            background-color: #d4e6f1;
+            padding: 15px;
+            border-radius: 12px; /* Rounded date boxes */
+            width: 120px; /* Wider date boxes */
+            text-align: center;
+            font-weight: 600;
+            color: #1a5295;
+            position: relative;
+            z-index: 2; /* Ensure date is above the line */
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+        }
+
+        .timeline-item-date:hover {
+            background-color: #a9cce3; /* Slightly darker on hover */
+            transform: scale(1.05); /* Slight scale on hover */
+        }
+
+        .timeline-item:nth-child(odd) .timeline-item-date {
+            left: -140px; /* Adjusted positioning */
+        }
+
+        .timeline-item:nth-child(even) .timeline-item-date {
+            right: -140px; /* Adjusted positioning */
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 3px; /* Thicker line */
+            height: 100%;
+            background-color: #a9cce3;
+            transform: translateX(-50%);
+            z-index: 1; /* Line behind content and dates */
+        }
+
+        /* Media query for mobile responsiveness */
+        @media (max-width: 768px) {
+            .timeline-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .timeline-item-content {
+                width: 100%;
+                margin-top: 20px;
+            }
+
+            .timeline-item-date {
+                position: static;
+                margin: 15px auto;
+                width: 90%;
+            }
+
+            .timeline-line {
+                left: 10%;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-item-date,
+            .timeline-item:nth-child(even) .timeline-item-date {
+                left: auto;
+                right: auto;
+            }
+        }
+
+        /* Additional styling for a more modern look */
+        .timeline-item-content::before,
+        .timeline-item-content::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #a9cce3; /* Accent color */
+            border-radius: 50%;
+            top: 10px;
+        }
+
+        .timeline-item-content::before {
+            left: -20px;
+        }
+
+        .timeline-item-content::after {
+            right: -20px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <header class="bg-blue-600 text-white py-6">
+        <div class="container mx-auto text-center">
+            <h1 class="text-3xl font-semibold">Historische Altstadt Belzig</h1>
+        </div>
+    </header>
+
+    <main class="container mx-auto py-10">
+        <div class="timeline">
+            <div class="timeline-line"></div>
+            <div class="timeline-item">
+                <div class="timeline-item-date">10. Jahrhundert</div>
+                <div class="timeline-item-content">
+                    <h3>Erwähnung durch Otto III.</h3>
+                    <p>Kaiser Otto III. verehrt „burgwardium belizi" an Erzbischof Giselher von Magdeburg.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-item-date">9. Jh.</div>
+                <div class="timeline-item-content">
+                    <h3>Slawische Besiedlung</h3>
+                    <p>Westslawische Heveller siedeln im Belziger Land und gründen eine Burg.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-item-date">997</div>
+                <div class="timeline-item-content">
+                    <h3>Erste Erwähnung</h3>
+                    <p>Erste urkundliche Erwähnung Belzigs als "burgwardium belizi" in einer Kaiserurkunde Otto III.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-item-date">1251</div>
+                <div class="timeline-item-content">
+                    <h3>Grafen von Belzig</h3>
+                    <p>Das Geschlecht der Grafen von Belzig erlischt und das Belziger Land fällt unter die unmittelbare Herrschaft der Herzöge von Sachsen.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-item-date">1465</div>
+                <div class="timeline-item-content">
+                    <h3>Name "Eisenhardt"</h3>
+                    <p>Die Burg erhält vom sächsischen Kurfürsten Ernst den Namen "Eisenhardt". Damit ist der Wunsch verbunden, sie möge hart gegen Eisen sein – auf ewig uneinnehmbar.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-item-date">1530</div>
+                <div class="timeline-item-content">
+                    <h3>Kirchenvisitation</h3>
+                    <p>Erste evangelische Kirchenvisitation unter Leitung von Martin Luther.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-item-date">1636</div>
+                <div class="timeline-item-content">
+                    <h3>Zerstörung im Krieg</h3>
+                    <p>Weitgehende Zerstörung Belzigs im 30-jährigen Krieg, danach Wiederaufbau.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-item-date">1702</div>
+                <div class="timeline-item-content">
+                    <h3>Stadtrechte</h3>
+                    <p>Belzig erhält die vollen Stadtrechte.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-item-date">1815</div>
+                <div class="timeline-item-content">
+                    <h3>Preußische Provinz</h3>
+                    <p>Belzig wird preußisch.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-item-date">1914</div>
+                <div class="timeline-item-content">
+                    <h3>Eingemeindung</h3>
+                    <p>Die Landgemeinde Sandberg und das Schloss Eisenhardt werden in die Stadt eingemeindet.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-item-date">1993</div>
+                <div class="timeline-item-content">
+                    <h3>Kreisstadt</h3>
+                    <p>Belzig wird Kreisstadt des neu gebildeten Großkreises Potsdam-Mittelmark.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-item-date">1995</div>
+                <div class="timeline-item-content">
+                    <h3>Luftkurort</h3>
+                    <p>Die Stadt erhält den Titel "Staatlich anerkannter Luftkurort".</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-item-date">1996</div>
+                <div class="timeline-item-content">
+                    <h3>Thermalsole-Quelle</h3>
+                    <p>Erschließung einer Quelle mit Thermalsole in 775 m Tiefe.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-item-date">2002</div>
+                <div class="timeline-item-content">
+                    <h3>SteinTherme</h3>
+                    <p>Eröffnung des Thermalbads SteinTherme. Belzig wird anerkannter Kurort mit dem Prädikat "Ort mit Heilquellenkurbetrieb".</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-item-date">2009</div>
+                <div class="timeline-item-content">
+                    <h3>Heilbad</h3>
+                    <p>Staatliche Anerkennung zum Thermalsole-Heilbad.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-item-date">2010</div>
+                <div class="timeline-item-content">
+                    <h3>Namensänderung</h3>
+                    <p>Die Stadt erhält den Titel "Bad Belzig".</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-200 text-gray-600 py-6 mt-12">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 Historische Altstadt Belzig. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
+</body>
+</html>
