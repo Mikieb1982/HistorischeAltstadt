@@ -12,7 +12,6 @@
             background-color: #f9f6e8;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
-            perspective: 1000px;
             margin: 0;
         }
 
@@ -21,6 +20,8 @@
             padding: 2rem 0;
             text-align: center;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1000;
         }
 
         header h1 {
@@ -31,38 +32,55 @@
         }
 
         main {
-            padding: 3rem 0;
+            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        .timeline {
+        .timeline-container {
             position: relative;
             width: 100%;
-            max-width: 1000px;
+            height: 2000px;
             transform-origin: 50% 0;
         }
 
+        .timeline {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 3px;
+            height: 100%;
+            background-color: #a9cce3;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
         .timeline-item {
+            position: absolute;
             display: flex;
             justify-content: space-between;
-            margin-bottom: 60px;
-            position: relative;
-            align-items: center;
+            width: 100%;
             opacity: 0;
-            transform: translateY(50px) scale(0.8) translateZ(-500px);
-            transition: opacity 1s ease, transform 1s ease;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            transform-origin: 0 50%;
         }
 
         .timeline-item.active {
             opacity: 1;
-            transform: translateY(0) scale(1) translateZ(0);
+            transform: translateX(0) scale(1);
         }
 
         .timeline-item:nth-child(odd) {
-            flex-direction: row-reverse;
-            text-align: left;
+            left: 0;
+            transform: translateX(-100%);
+        }
+
+        .timeline-item:nth-child(even) {
+            right: 0;
+            transform: translateX(100%);
         }
 
         .timeline-item-content {
@@ -71,10 +89,12 @@
             border-radius: 12px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
             width: 45%;
+            z-index: 2;
+            position: relative;
         }
 
         .timeline-item-content:hover {
-            transform: scale(1.03) translateZ(10px);
+            transform: scale(1.03);
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
         }
 
@@ -116,17 +136,6 @@
             right: -140px;
         }
 
-        .timeline-line {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            width: 3px;
-            height: 100%;
-            background-color: #a9cce3;
-            transform: translateX(-50%);
-            z-index: 1;
-        }
-
         /* Media query for mobile responsiveness */
         @media (max-width: 768px) {
             .timeline-item {
@@ -137,7 +146,6 @@
             .timeline-item-content {
                 width: 90%;
                 margin-top: 20px;
-                transform: translateZ(0);
             }
 
             .timeline-item-date {
@@ -146,31 +154,19 @@
                 width: 80%;
             }
 
+            .timeline-item:nth-child(odd) {
+                left: auto;
+                transform: translateX(0);
+            }
+
+            .timeline-item:nth-child(even) {
+                right: auto;
+                transform: translateX(0);
+            }
+
             .timeline-line {
                 left: 10%;
             }
-
-            .timeline-item:nth-child(odd) .timeline-item-date,
-            .timeline-item:nth-child(even) .timeline-item-date {
-                left: auto;
-                right: auto;
-            }
-        }
-
-        /* --- Custom animations --- */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(50px) scale(0.8) translateZ(-500px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1) translateZ(0);
-            }
-        }
-
-        .timeline-item.active {
-            animation: fadeIn 1s ease forwards;
         }
     </style>
 </head>
@@ -181,119 +177,77 @@
         </div>
     </header>
 
-    <main class="container mx-auto py-10">
-        <div class="timeline">
-            <div class="timeline-line"></div>
-            <div class="timeline-item" data-year="10. Jahrhundert">
+    <main class="main-content">
+        <div class="timeline-container">
+            <div class="timeline"></div>
+            <div class="timeline-item" data-year="10. Jahrhundert" style="top: 100px;">
                 <div class="timeline-item-date">10. Jahrhundert</div>
                 <div class="timeline-item-content">
                     <h3 style="color: #8cb056;">Erwähnung durch Otto III.</h3>
                     <p style="color: #693043;">Kaiser Otto III. verehrt „burgwardium belizi" an Erzbischof Giselher von Magdeburg.</p>
                 </div>
             </div>
-            <div class="timeline-item" data-year="9. Jahrhundert">
+            <div class="timeline-item" data-year="9. Jahrhundert" style="top: 300px;">
                 <div class="timeline-item-date">9. Jh.</div>
                 <div class="timeline-item-content">
                     <h3 style="color: #8cb056;">Slawische Besiedlung</h3>
                     <p style="color: #693043;">Westslawische Heveller siedeln im Belziger Land und gründen eine Burg.</p>
                 </div>
             </div>
-            <div class="timeline-item" data-year="997">
+            <div class="timeline-item" data-year="997" style="top: 500px;">
                 <div class="timeline-item-date">997</div>
                 <div class="timeline-item-content">
                     <h3 style="color: #8cb056;">Erste Erwähnung</h3>
                     <p style="color: #693043;">Erste urkundliche Erwähnung Belzigs als "burgwardium belizi" in einer Kaiserurkunde Otto III.</p>
                 </div>
             </div>
-            <div class="timeline-item" data-year="1251">
+            <div class="timeline-item" data-year="1251" style="top: 700px;">
                 <div class="timeline-item-date">1251</div>
                 <div class="timeline-item-content">
                     <h3 style="color: #8cb056;">Grafen von Belzig</h3>
                     <p style="color: #693043;">Das Geschlecht der Grafen von Belzig erlischt und das Belziger Land fällt unter die unmittelbare Herrschaft der Herzöge von Sachsen.</p>
                 </div>
             </div>
-            <div class="timeline-item" data-year="1465">
+            <div class="timeline-item" data-year="1465" style="top: 900px;">
                 <div class="timeline-item-date">1465</div>
                 <div class="timeline-item-content">
                     <h3 style="color: #8cb056;">Name "Eisenhardt"</h3>
                     <p style="color: #693043;">Die Burg erhält vom sächsischen Kurfürsten Ernst den Namen "Eisenhardt". Damit ist der Wunsch verbunden, sie möge hart gegen Eisen sein – auf ewig uneinnehmbar.</p>
                 </div>
             </div>
-            <div class="timeline-item" data-year="1530">
+            <div class="timeline-item" data-year="1530" style="top: 1100px;">
                 <div class="timeline-item-date">1530</div>
                 <div class="timeline-item-content">
                     <h3 style="color: #8cb056;">Kirchenvisitation</h3>
                     <p style="color: #693043;">Erste evangelische Kirchenvisitation unter Leitung von Martin Luther.</p>
                 </div>
             </div>
-            <div class="timeline-item" data-year="1636">
+            <div class="timeline-item" data-year="1636" style="top: 1300px;">
                 <div class="timeline-item-date">1636</div>
                 <div class="timeline-item-content">
                     <h3 style="color: #8cb056;">Zerstörung im Krieg</h3>
                     <p style="color: #693043;">Weitgehende Zerstörung Belzigs im 30-jährigen Krieg, danach Wiederaufbau.</p>
                 </div>
             </div>
-            <div class="timeline-item" data-year="1702">
+            <div class="timeline-item" data-year="1702" style="top: 1500px;">
                 <div class="timeline-item-date">1702</div>
                 <div class="timeline-item-content">
                     <h3 style="color: #8cb056;">Stadtrechte</h3>
                     <p style="color: #693043;">Belzig erhält die vollen Stadtrechte.</p>
                 </div>
             </div>
-            <div class="timeline-item" data-year="1815">
+            <div class="timeline-item" data-year="1815" style="top: 1700px;">
                 <div class="timeline-item-date">1815</div>
                 <div class="timeline-item-content">
                     <h3 style="color: #8cb056;">Preußische Provinz</h3>
                     <p style="color: #693043;">Belzig wird preußisch.</p>
                 </div>
             </div>
-            <div class="timeline-item" data-year="1914">
+            <div class="timeline-item" data-year="1914" style="top: 1900px;">
                 <div class="timeline-item-date">1914</div>
                 <div class="timeline-item-content">
                     <h3 style="color: #8cb056;">Eingemeindung</h3>
                     <p style="color: #693043;">Die Landgemeinde Sandberg und das Schloss Eisenhardt werden in die Stadt eingemeindet.</p>
-                </div>
-            </div>
-            <div class="timeline-item" data-year="1993">
-                <div class="timeline-item-date">1993</div>
-                <div class="timeline-item-content">
-                    <h3 style="color: #8cb056;">Kreisstadt</h3>
-                    <p style="color: #693043;">Belzig wird Kreisstadt des neu gebildeten Großkreises Potsdam-Mittelmark.</p>
-                </div>
-            </div>
-            <div class="timeline-item" data-year="1995">
-                <div class="timeline-item-date">1995</div>
-                <div class="timeline-item-content">
-                    <h3 style="color: #8cb056;">Luftkurort</h3>
-                    <p style="color: #693043;">Die Stadt erhält den Titel "Staatlich anerkannter Luftkurort".</p>
-                </div>
-            </div>
-            <div class="timeline-item" data-year="1996">
-                <div class="timeline-item-date">1996</div>
-                <div class="timeline-item-content">
-                    <h3 style="color: #8cb056;">Thermalsole-Quelle</h3>
-                    <p style="color: #693043;">Erschließung einer Quelle mit Thermalsole in 775 m Tiefe.</p>
-                </div>
-            </div>
-            <div class="timeline-item" data-year="2002">
-                <div class="timeline-item-date">2002</div>
-                <div class="timeline-item-content">
-                    <h3 style="color: #8cb056;">SteinTherme</h3>
-                    <p style="color: #693043;">Eröffnung des Thermalbads SteinTherme. Belzig wird anerkannter Kurort mit dem Prädikat "Ort mit Heilquellenkurbetrieb".</p>
-                </div>
-            </div>
-            <div class="timeline-item" data-year="2009">
-                <div class="timeline-item-date">2009</div>
-                <div class="timeline-item-content">
-                    <h3 style="color: #8cb056;">Heilbad</h3>
-                    <p style="color: #693043;">Staatliche Anerkennung zum Thermalsole-Heilbad.</p>
-                </div>
-            </div>
-            <div class="timeline-item" data-year="2010">
-                <div class="timeline-item-date">2010</div>
-                <div class="timeline-item-content">
-                    <h3 style="color: #8cb056;">Namensänderung</h3>
-                    <p style="color: #693043;">Die Stadt erhält den Titel "Bad Belzig".</p>
                 </div>
             </div>
         </div>
@@ -308,15 +262,22 @@
     <script>
         const timelineItems = document.querySelectorAll('.timeline-item');
         let lastScrollTop = 0;
+        let isScrolling = false;
 
         function checkSlide() {
+            if (isScrolling) return;
+            isScrolling = true;
+
             const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
             timelineItems.forEach(item => {
-                const itemTop = item.getBoundingClientRect().top;
+                const itemTop = item.offsetTop;
                 const windowHeight = window.innerHeight;
+                const timelineHeight = document.querySelector('.timeline-container').offsetHeight;
 
-                if (itemTop < windowHeight - 100) {
+                let itemVisibleHeight = windowHeight / 2;
+
+                if (itemTop < currentScrollTop + windowHeight - itemVisibleHeight && itemTop + item.offsetHeight > currentScrollTop + itemVisibleHeight) {
                     item.classList.add('active');
                 } else {
                     item.classList.remove('active');
@@ -324,6 +285,9 @@
             });
 
             lastScrollTop = currentScrollTop;
+            setTimeout(() => {
+                isScrolling = false;
+            }, 200);
         }
 
         window.addEventListener('scroll', checkSlide);
